@@ -16,7 +16,7 @@ binding = "R2"
 bucket_name = "ushrh"
 
 [vars]
-JWT_SECRET = "change-me-in-production"
+JWT_SECRET = "K7mN9pQrStUvWxYzA1b2c3D4e5F6g7H8i9J0kL1mN2oP3qR4sT5uV6wX7yZ8"
 TURNSTILE_SITE_KEY = ""
 TURNSTILE_SECRET_KEY = ""
 

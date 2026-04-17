@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.cloudflare.com",
       },
+      {
+        protocol: "https",
+        hostname: "pub-d7190d858f4f4f4c9d7d47c40a9e1f09.r2.dev",
+      },
     ],
   },
   experimental: {
