@@ -53,12 +53,12 @@ export async function GET(request: NextRequest) {
 
     // 获取总数
     const countQuery = `SELECT COUNT(*) as total FROM posts p WHERE p.status = 'active' AND (p.title LIKE ? OR p.description LIKE ?)`;
-    const countBindings = [`%${q}%`, `%${q}%`];
+    const countBindings: (string | number)[] = [`%${q}%`, `%${q}%`];
     if (categoryId) countBindings.push(parseInt(categoryId, 10));
     if (state) countBindings.push(state);
 
     const countResult = await db.prepare(countQuery).bind(...countBindings).first();
-    const total = countResult?.total || 0;
+    const total = Number(countResult?.total || 0);
 
     // 添加排序和分页
     query += " ORDER BY p.is_sticky DESC, p.created_at DESC LIMIT ? OFFSET ?";

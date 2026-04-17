@@ -297,7 +297,7 @@ export async function POST(request: NextRequest) {
     const validationResult = createPostSchema.safeParse(body);
 
     if (!validationResult.success) {
-      const errors = validationResult.error.errors;
+      const errors = validationResult.error.issues;
       return NextResponse.json(
         { error: errors[0]?.message || "数据验证失败" },
         { status: 400 }

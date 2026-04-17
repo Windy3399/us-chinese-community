@@ -1,23 +1,10 @@
 import type { Metadata } from "next";
-import { Noto_Sans_SC, Noto_Serif_SC } from "next/font/google";
 import { Toaster } from "sonner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AuthProvider } from "@/components/providers/AuthProvider";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import "./globals.css";
-
-const notoSans = Noto_Sans_SC({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const notoSerif = Noto_Serif_SC({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: {
@@ -27,6 +14,7 @@ export const metadata: Metadata = {
   description: "北美华人社区生活服务平台 - 本地资讯、房屋租售、招聘求职、同城交易",
   keywords: ["北美华人", "美国华人", "同城社区", "房屋租售", "招聘求职", "本地资讯", "华人论坛"],
   authors: [{ name: "US Chinese Community" }],
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://uschinesecommunity.com"),
   openGraph: {
     type: "website",
     locale: "zh_CN",
@@ -73,9 +61,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className="h-full">
-      <body
-        className={`${notoSans.variable} ${notoSerif.variable} h-full antialiased`}
-      >
+      <body className="h-full antialiased">
         <AuthProvider>
           <AnnouncementBanner />
           <div className="min-h-screen flex flex-col">

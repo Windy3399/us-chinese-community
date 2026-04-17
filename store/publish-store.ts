@@ -132,7 +132,7 @@ export interface PublishFormData {
   childCategoryId: number | null;
   title: string;
   description: string;
-  state: USState | null;
+  state: string | null;
   city: string;
   phone: string;
   wechat: string;

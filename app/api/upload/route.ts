@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth";
+import type { R2Bucket } from "@cloudflare/workers-types";
 
 export const runtime = 'edge';
 

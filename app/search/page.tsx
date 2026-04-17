@@ -11,19 +11,6 @@ import { PostCard } from "@/components/post/PostCard";
 import { PostCardSkeleton } from "@/components/skeletons";
 import Link from "next/link";
 
-import { Metadata } from "next";
-
-export const generateMetadata = (): Metadata => {
-  return {
-    title: "搜索帖子 - 美国华人同城",
-    description: "在美国华人同城搜索您感兴趣的帖子，涵盖房屋租售、招聘求职、同城交易、本地资讯等",
-    robots: {
-      index: false,
-      follow: false,
-    },
-  };
-};
-
 interface SearchPost {
   id: string;
   title: string;
@@ -47,8 +34,8 @@ export default function SearchPage() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [categoryId, setCategoryId] = useState<string>("");
-  const [state, setState] = useState<string>("");
+  const [categoryId, setCategoryId] = useState<string | null>("");
+  const [state, setState] = useState<string | null>("");
 
   const limit = 20;
 

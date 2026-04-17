@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    optimizePackageImports: ["lucide-react", "sonner"],
+  },
+  serverExternalPackages: ["@node-rs/argon2"],
 };
 
 export default nextConfig;

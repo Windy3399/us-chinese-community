@@ -26,5 +26,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 // 导出 useAuth hook
 export const useAuth = () => {
-  return useAuthStore();
+  const store = useAuthStore();
+  // 向后兼容：同时提供 loading 和 isLoading
+  return {
+    ...store,
+    loading: store.isLoading,
+  };
 };

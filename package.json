@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:cf": "npm run build && npx wrangler pages dev .next --compatibility-date=2024-12-01 --d1 DB:ushrh --port 3000",
-    "build": "next build",
+    "dev:cf": "NEXT_USE_WEBPACK=true npm run build && npx wrangler pages dev .next --compatibility-date=2024-12-01 --d1 DB:ushrh --port 3000",
+    "build": "NEXT_USE_WEBPACK=true next build",
     "start": "next start",
     "lint": "eslint"
   },
