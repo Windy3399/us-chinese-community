@@ -1,18 +1,28 @@
 export default {
   async fetch(request, env, ctx) {
-    // 对于 API 请求，直接转发到 Next.js 服务器
-    if (request.url.includes('/api/')) {
-      return fetch(request);
-    }
-
-    // 对于所有其他请求，使用 Next.js 处理
     const url = new URL(request.url);
 
-    // 添加必要的头部
-    const modifiedRequest = new Request(request, {
-      headers: request.headers,
-    });
+    // 日志：记录请求
+    console.log('Request:', url.pathname);
 
-    return fetch(modifiedRequest);
+    // 对于静态资产请求，从 KV 获取
+    if (
+      url.pathname.startsWith('/_next/') ||
+      url.pathname.match(/\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$/)
+    ) {
+      try {
+        const asset = await getAssetFromKV({ request, env, ctx }, env);
+        if (asset) {
+          console.log('Serving static asset:', url.pathname);
+          return asset;
+        }
+      } catch (e) {
+        console.log('Static asset error:', e);
+      }
+    }
+
+    // 所有其他请求转发到 Next.js 服务器
+    console.log('Proxying to Next.js:', url.pathname);
+    return fetch(request);
   },
 };
