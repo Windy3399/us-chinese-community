@@ -20,5 +20,3 @@ JWT_SECRET = "change-me-in-production"
 TURNSTILE_SITE_KEY = ""
 TURNSTILE_SECRET_KEY = ""
 
-[[triggers]]
-crons = ["0 0 * * *", "0 2 * * *"]
