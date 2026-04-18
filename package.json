@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "dev:cf": "NEXT_USE_WEBPACK=true npm run build && npx wrangler pages dev .next --compatibility-date=2024-12-01 --d1 DB:ushrh --port 3000",
-    "build": "npx @cloudflare/next-on-pages@latest build",
+    "build": "next-on-pages",
     "start": "next start",
     "lint": "eslint"
   },
