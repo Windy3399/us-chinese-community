@@ -7,7 +7,7 @@
     "dev:cf": "NEXT_USE_WEBPACK=true npm run build && npx wrangler pages dev .next --compatibility-date=2024-12-01 --d1 DB:ushrh --port 3000",
     "build": "NEXT_USE_WEBPACK=true next build",
     "postbuild": "npm run copy:worker",
-    "copy:worker": "node -e \"require('fs').copyFileSync('_worker.js', '.next/_worker.js')\"",
+    "copy:worker": "node -e \"try { require('fs').copyFileSync('_worker.js', '.next/_worker.js'); } catch (e) { if (e.code !== 'ENOENT') console.error(e); }\"",
     "start": "next start",
     "lint": "eslint"
   },
