@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 type AnnouncementStyle = "info" | "warning" | "error" | "success";
 
@@ -10,31 +10,22 @@ interface Announcement {
   style: AnnouncementStyle;
 }
 
+// 静态公告数据（可编辑）
+const staticAnnouncement: Announcement = {
+  enabled: true,
+  content: "🎉 欢迎来到美国华人同城！网站正在试运行，欢迎注册发布信息。",
+  style: "info",
+};
+
 export default function AnnouncementBanner() {
-  const [announcement, setAnnouncement] = useState<Announcement | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchAnnouncement();
-  }, []);
+  // 模拟加载完成（静态数据不需要请求）
+  useState(() => {
+    setTimeout(() => setLoading(false), 0);
+  });
 
-  const fetchAnnouncement = async () => {
-    try {
-      const response = await fetch("/api/announcement");
-      const data = await response.json();
-      if (data.success && data.data.enabled) {
-        setAnnouncement(data.data);
-      } else {
-        setAnnouncement(null);
-      }
-    } catch (error) {
-      console.error("Failed to fetch announcement:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading || !announcement) {
+  if (loading || !staticAnnouncement.enabled) {
     return null;
   }
 
@@ -46,8 +37,8 @@ export default function AnnouncementBanner() {
   };
 
   return (
-    <div className={`${styleMap[announcement.style]} px-4 py-3 text-center`}>
-      <p className="whitespace-pre-wrap">{announcement.content}</p>
+    <div className={`${styleMap[staticAnnouncement.style]} px-4 py-3 text-center`}>
+      <p className="whitespace-pre-wrap text-sm">{staticAnnouncement.content}</p>
     </div>
   );
 }

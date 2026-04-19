@@ -1,58 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import {
-  Search,
-  Menu,
-  X,
-  User,
-  FileText,
-  Settings,
-  LogOut,
-  ChevronDown,
-  Sparkles,
-} from "lucide-react";
+import { Search, Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { useAuthStore } from "@/store/auth-store";
-import { ExchangeRate } from "@/components/home/ExchangeRate";
 
 const navLinks = [
   { href: "/", label: "首页" },
 ];
 
 export function Header() {
-  const pathname = usePathname();
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const { user, logout, fetchUser, isHydrated } = useAuthStore();
-
-  useEffect(() => {
-    if (!isHydrated) {
-      fetchUser();
-    }
-  }, [isHydrated, fetchUser]);
-
-  const handleLogout = async () => {
-    await logout();
-    router.push("/");
-    router.refresh();
-  };
-
-  const isLoggedIn = !!user;
 
   return (
     <header className="sticky top-0 z-50 w-full">
@@ -79,21 +44,11 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={cn(
-                      "px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300",
-                      pathname === link.href
-                        ? "text-blue-600 bg-blue-50 dark:bg-blue-950/50"
-                        : "text-zinc-600 hover:text-blue-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                    )}
+                    className="px-4 py-2 text-sm font-medium rounded-lg text-zinc-600 hover:text-blue-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-all duration-300"
                   >
                     {link.label}
                   </Link>
                 ))}
-
-                {/* 汇率显示 */}
-                <div className="ml-2">
-                  <ExchangeRate />
-                </div>
               </nav>
             </div>
 
@@ -108,67 +63,23 @@ export function Header() {
             </div>
 
             <div className="flex items-center gap-3">
-              {isLoggedIn ? (
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-300 group cursor-pointer">
-                    <Avatar className="w-8 h-8 ring-2 ring-blue-500/20 group-hover:ring-blue-500/40 transition-all">
-                      <AvatarImage src="" />
-                      <AvatarFallback className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white text-sm font-medium">
-                        {user?.username?.charAt(0).toUpperCase() || "U"}
-                      </AvatarFallback>
-                    </Avatar>
-                    <ChevronDown className="w-4 h-4 text-zinc-400" />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 mt-2 p-1.5 rounded-xl shadow-xl border-zinc-200/50 dark:border-zinc-800/50">
-                    <div className="px-3 py-2 mb-1">
-                      <p className="text-sm font-medium">{user?.username || "用户"}</p>
-                      <p className="text-xs text-zinc-500">{user?.email || ""}</p>
-                    </div>
-                    <DropdownMenuSeparator className="my-1.5 bg-zinc-200/50 dark:bg-zinc-700/50" />
-                    <DropdownMenuItem className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-600 transition-colors">
-                      <Link href="/profile" className="flex items-center gap-2.5 w-full">
-                        <User className="w-4 h-4" />
-                        <span className="text-sm">个人中心</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-600 transition-colors">
-                      <Link href="/my-posts" className="flex items-center gap-2.5 w-full">
-                        <FileText className="w-4 h-4" />
-                        <span className="text-sm">我的帖子</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:text-blue-600 transition-colors">
-                      <Link href="/settings" className="flex items-center gap-2.5 w-full">
-                        <Settings className="w-4 h-4" />
-                        <span className="text-sm">设置</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="my-1.5 bg-zinc-200/50 dark:bg-zinc-700/50" />
-                    <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2.5 px-3 py-2.5 rounded-lg cursor-pointer hover:bg-red-50 dark:hover:bg-red-950/50 hover:text-red-600 transition-colors">
-                      <LogOut className="w-4 h-4" />
-                      <span className="text-sm">退出登录</span>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              ) : (
-                <div className="hidden md:flex items-center gap-2">
-                  <Link href="/login">
-                    <Button
-                      variant="ghost"
-                      className="h-9 px-4 text-sm font-medium text-zinc-600 hover:text-blue-600 hover:bg-blue-50 dark:text-zinc-300 dark:hover:text-blue-400 dark:hover:bg-blue-950/50 transition-all duration-300"
-                    >
-                      登录
-                    </Button>
-                  </Link>
-                  <Link href="/register">
-                    <Button
-                      className="h-9 px-4 text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300"
-                    >
-                      注册
-                    </Button>
-                  </Link>
-                </div>
-              )}
+              <div className="hidden md:flex items-center gap-2">
+                <Link href="/login">
+                  <Button
+                    variant="ghost"
+                    className="h-9 px-4 text-sm font-medium text-zinc-600 hover:text-blue-600 hover:bg-blue-50 dark:text-zinc-300 dark:hover:text-blue-400 dark:hover:bg-blue-950/50 transition-all duration-300"
+                  >
+                    登录
+                  </Button>
+                </Link>
+                <Link href="/register">
+                  <Button
+                    className="h-9 px-4 text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-300"
+                  >
+                    注册
+                  </Button>
+                </Link>
+              </div>
 
               <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
                 <SheetTrigger className="lg:hidden flex items-center justify-center w-9 h-9 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-300 cursor-pointer">
@@ -206,37 +117,30 @@ export function Header() {
                           key={link.href}
                           href={link.href}
                           onClick={() => setMobileOpen(false)}
-                          className={cn(
-                            "flex items-center px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300",
-                            pathname === link.href
-                              ? "text-blue-600 bg-blue-50 dark:bg-blue-950/50"
-                              : "text-zinc-600 hover:text-blue-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800"
-                          )}
+                          className="flex items-center px-4 py-3 text-sm font-medium rounded-xl text-zinc-600 hover:text-blue-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800 transition-all duration-300"
                         >
                           {link.label}
                         </Link>
                       ))}
                     </nav>
 
-                    {!isLoggedIn && (
-                      <div className="p-4 border-t border-zinc-200/50 dark:border-zinc-800/50 space-y-2">
-                        <Link href="/login" onClick={() => setMobileOpen(false)}>
-                          <Button
-                            variant="outline"
-                            className="w-full h-11 text-sm font-medium border-2 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 transition-all duration-300"
-                          >
-                            登录
-                          </Button>
-                        </Link>
-                        <Link href="/register" onClick={() => setMobileOpen(false)}>
-                          <Button
-                            className="w-full h-11 text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 shadow-lg shadow-blue-500/25 transition-all duration-300"
-                          >
-                            注册
-                          </Button>
-                        </Link>
-                      </div>
-                    )}
+                    <div className="p-4 border-t border-zinc-200/50 dark:border-zinc-800/50 space-y-2">
+                      <Link href="/login" onClick={() => setMobileOpen(false)}>
+                        <Button
+                          variant="outline"
+                          className="w-full h-11 text-sm font-medium border-2 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-600 transition-all duration-300"
+                        >
+                          登录
+                        </Button>
+                      </Link>
+                      <Link href="/register" onClick={() => setMobileOpen(false)}>
+                        <Button
+                          className="w-full h-11 text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 shadow-lg shadow-blue-500/25 transition-all duration-300"
+                        >
+                          注册
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </SheetContent>
               </Sheet>

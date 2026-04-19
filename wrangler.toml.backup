@@ -1,0 +1,19 @@
+name = "us-chinese-community"
+main = ".vercel/output/functions/_worker.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[d1_databases]
+DB = { database_name = "ushrh", database_id = "3097c546-b342-4283-ac03-44d99967b012" }
+
+[kv_namespaces]
+KV = { id = "a513ab547fd2462591408cda67acec2c" }
+
+[r2_buckets]
+R2 = { bucket_name = "ushrh" }
+
+[vars]
+JWT_SECRET = "K7mN9pQrStUvWxYzA1b2c3D4e5F6g7H8i9J0kL1mN2oP3qR4sT5uV6wX7yZ8"
+TURNSTILE_SITE_KEY = ""
+TURNSTILE_SECRET_KEY = ""
+

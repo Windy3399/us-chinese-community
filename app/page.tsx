@@ -12,10 +12,9 @@ import {
   BookOpen,
   Newspaper,
   ThumbsUp,
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { AnnouncementBanner } from "@/components/home/AnnouncementBanner";
 import { CategoryGrid } from "@/components/home/CategoryGrid";
 import { LatestPosts } from "@/components/home/LatestPosts";
 import { WelfarePosts } from "@/components/home/WelfarePosts";
@@ -111,8 +110,14 @@ const features = [
 export default function HomePage() {
   return (
     <div className="space-y-10">
-      {/* Announcement Banner */}
-      <AnnouncementBanner />
+      {/* 顶部横幅公告（静态） */}
+      <div className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 px-4 py-3 text-center text-white">
+        <p className="text-sm">
+          🎉 欢迎来到美国华人同城！立即
+          <Link href="/register" className="font-bold underline mx-1">注册</Link>
+          发布您的第一条帖子
+        </p>
+      </div>
 
       {/* 分类导航栏 */}
       <section className="container mx-auto px-4 max-w-7xl">
@@ -288,7 +293,7 @@ export default function HomePage() {
             </div>
             <div className="divide-y divide-gray-100 dark:divide-zinc-800">
               {[
-                { title: "法拉盛两室一厅出租，近7号线地铁，拎包入住", sub: "房屋出租", time: "1小���前" },
+                { title: "法拉盛两室一厅出租，近7号线地铁，拎包入住", sub: "房屋出租", time: "1小时前" },
                 { title: "求租：波士顿一室一厅，预算$1500以内", sub: "房屋需求", time: "2小时前" },
                 { title: "尔湾独立屋出售，好学区，4房3卫，带泳池", sub: "房屋出售", time: "3小时前" },
                 { title: "曼哈顿中城studio转租，2月1日可入住", sub: "房屋出租", time: "5小时前" },
@@ -325,7 +330,7 @@ export default function HomePage() {
                 { title: "2020 Honda Civic低价出售，3万迈，无事故", sub: "二手车辆", time: "2小时前" },
                 { title: "奶茶店旺铺转让，设备齐全可直接经营", sub: "生意转让", time: "4小时前" },
                 { title: "搬家清仓：沙发茶几餐桌全套$200带走", sub: "闲置物品", time: "6小时前" },
-                { title: "2018 Toyota Camry出售，车况极好，定期保养", sub: "二手车辆", time: "昨天" },
+                { title: "2018 Toyota Camry出售，车况极���，定期保养", sub: "二手车辆", time: "昨天" },
                 { title: "免费赠送：宝宝衣服玩具一大箱，自取", sub: "闲置物品", time: "2天前" },
               ].map((post, index) => (
                 <Link key={index} href={`/posts/${index + 500}`} className="block group px-4 py-3 hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition-colors">
@@ -392,11 +397,11 @@ export default function HomePage() {
             </div>
             <div className="divide-y divide-gray-100 dark:divide-zinc-800">
               {[
-                { title: "纽约王律师事务所·移民/车祸/��产纠纷", sub: "法律会计", time: "1小时前" },
+                { title: "纽约王律师事务所·移民/车祸/房产纠纷", sub: "法律会计", time: "1小时前" },
                 { title: "湾区李师傅装修·厨房浴室翻新·免费估价", sub: "建筑装修", time: "3小时前" },
                 { title: "洛杉矶张医生家庭诊所·中英双语·接受保险", sub: "医疗健康", time: "5小时前" },
                 { title: "芝加哥专业月嫂·持证上岗·经验丰富", sub: "家政服务", time: "8小时前" },
-                { title: "休斯顿陈老师钢琴教学·考级辅导·上门授课", sub: "教育培训", time: "昨天" },
+                { title: "休斯顿陈老师钢琴��学·考级辅导·上门授课", sub: "教育培训", time: "昨天" },
                 { title: "达拉斯24小时机场接送·商务用车·长途包车", sub: "代跑接送", time: "2天前" },
               ].map((post, index) => (
                 <Link key={index} href={`/posts/${index + 700}`} className="block group px-4 py-3 hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition-colors">

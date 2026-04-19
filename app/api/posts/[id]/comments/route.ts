@@ -14,7 +14,7 @@ function generateId(): string {
 }
 
 // 敏感词过滤（预留）
-export function filterContent(content: string): string {
+function filterContent(content: string): string {
   // TODO: 实现敏感词过滤
   return content;
 }

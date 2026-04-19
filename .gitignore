@@ -5,6 +5,7 @@ node_modules/
 .next/
 out/
 build/
+.open-next/
 
 # Environment variables
 .env
@@ -30,3 +31,4 @@ Thumbs.db
 
 # Wrangler
 .wrangler/
+
